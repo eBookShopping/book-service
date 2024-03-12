@@ -1,6 +1,12 @@
 namespace Book.Domain.Interfaces
 {
     /// <summary>
+    /// This interface is a shortcut to IRepository<TEntity, Guid>.
+    /// </summary>
+    public interface IRepository<TEntity> : IRepository<TEntity, Guid> where TEntity : class, IEntity<Guid>
+    {}
+
+    /// <summary>
     /// This interface is implemented by all repositories to ensure implementation of fixed methods.
     /// </summary>
     /// <typeparam name="TEntity">Main Entity type this repository works on</typeparam>
@@ -10,8 +16,9 @@ namespace Book.Domain.Interfaces
         /// <summary>
         /// Used to get a IQueryable that is used to retrieve entities from entire table.
         /// </summary>
+        /// <param name="propertySelectors">A list of include expressions.</param>
         /// <returns>IQueryable to be used to select entities from database</returns>
-        IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] propertySelectors);
 
         /// <summary>
         /// Used to get all entities.

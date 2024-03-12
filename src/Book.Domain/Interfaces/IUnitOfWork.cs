@@ -23,6 +23,11 @@ namespace Book.Domain.Interfaces
         Task SaveChangesAsync();
 
         /// <summary>
+        /// Get the shortcut to GetRepository for a specific entity having Guid as primary key.
+        /// </summary>
+        IRepository<TEntity, Guid> Repository<TEntity, Guid>() where TEntity : class, IEntity<Guid>;
+
+        /// <summary>
         /// Get the repository for a specific entity.
         /// </summary>
         /// <typeparam name="TEntity">Main Entity type this repository works on</typeparam>
